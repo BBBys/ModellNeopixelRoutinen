@@ -2,7 +2,7 @@
  * @file NLicht.cpp
  * @brief Funktionen für Neopixiel-Licht
  * @version 1.1
- * @date 13 Dez 23 6 4 3 2 Nov 31 30 Okt 2021
+ * @date 26 Jan 2022 13 Dez 23 6 4 3 2 Nov 31 30 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  */
@@ -46,6 +46,11 @@ void cNLicht::ein()
 cNLicht::~cNLicht()
 {
 }
+/**
+ * @brief nichts weiter als eine funzelige Schreibtischlampe 
+ * @param strip der Neopixel-Strip
+ * @param id Adresse der einen LED
+ */
 cSchreibLicht::cSchreibLicht(Adafruit_NeoPixel *strip, int id) : cNLicht(strip, id)
 {
     Farbe = strip->Color(255, 255, 20);

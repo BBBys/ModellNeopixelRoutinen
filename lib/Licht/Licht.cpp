@@ -2,7 +2,7 @@
  * @file Licht.cpp
  * @brief Funktionen zur Steuerung von einfachen Lichtern
  * @version 1.0
- * @date 23 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
+ * @date 26 Jan 2022 23 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  */
@@ -16,6 +16,15 @@ cLicht::cLicht(int pPin)
 {
     LichtID = pPin;
     istAn = false;
+}
+/**
+ * @brief true, wenn eingeschaltet
+ * @return true 
+ * @return false 
+ */
+bool cLicht::istEin()
+{
+    return istAn;
 }
 /**
  * @brief ein-oder ausschalten

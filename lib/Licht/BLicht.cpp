@@ -3,7 +3,7 @@
  * @brief Funktionen zur Steuerung von Blinklichtern
  * 
  * @version 1.2
- * @date 25 Jan 2022 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 Okt 2021
+ * @date 26 25 Jan 2022 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  */
@@ -37,11 +37,9 @@ cBLicht::cBLicht(Adafruit_NeoPixel *strip, int id, BlArt art , int pTan , int pT
     wechsel = 0;
     switch (art)
     {
+    case blaPolizei:
     case blaBlau:
         Farbe = NEOBLAU; //= 0x0000ff
-        break;
-    case blaPolizei:
-        Farbe = 0x0010ff;
         break;
     case blaRot:
         Farbe = NEOROT;
@@ -494,6 +492,7 @@ void cLRLicht::ein()
     Stat = stStart1;
     nZuenden = random(1, 3);
     iZuenden = 0;
+    istAn = true;
 }
 void cLRLicht::aus(unsigned int sekunden)
 {
@@ -504,6 +503,7 @@ void cLRLicht::aus(unsigned int sekunden)
     {
         cNLicht::aus();
         Stat = stAus;
+        istAn = false;
     }
     else
     {

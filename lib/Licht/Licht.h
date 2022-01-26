@@ -2,7 +2,7 @@
  * @file Licht.h
  * @brief Funktionen zur Steuerung von Lichtern
  * @version 1.3
- * @date 25 15 Jan 2022 13 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
+ * @date 26 25 15 Jan 2022 13 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  * Info zu Neopixel: https://learn.adafruit.com/adafruit-neopixel-uberguide/ 
@@ -46,6 +46,7 @@ public:
     virtual void setzen(bool p);
     virtual void ein();
     virtual void aus();
+    virtual bool istEin();
 };
 /**
  * @brief Klasse für Licht am Digitalausgang
