@@ -3,7 +3,7 @@
  * @author BBB
  * @brief Testprogramm für alle Lichtfunktionen
  * @version 1.1
- * @date 26 25 18 Jan 2022 3 Dez 7 6 4 3 2 1 Nov 31 30 29 28 Okt 2021
+ * @date 27 26 25 18 Jan 2022 3 Dez 7 6 4 3 2 1 Nov 31 30 29 28 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  * 
@@ -25,6 +25,8 @@ BL2c(&strip, 2, cBLicht::blaBlau,31,110),                                       
 cSchreibLicht Stl(&strip, 8);
 // Leuchtstoffröhre
 cLRLicht Lr(&strip, 9);
+// Fernseher
+cTVLicht Tv(&strip, 10);
 
 int art = 0;
 const int maxart = 1, dauer = 30;
@@ -50,6 +52,8 @@ void setup()
 
   Stl.ein();
   Lr.ein();
+  Tv.ein();
+
   anfang = millis();
   ende = anfang + (long int)(1000 * dauer);
   delay(300);
@@ -75,6 +79,7 @@ void loop()
       BL2c.check();
       BL2d.check();
       Lr.check();
+      Tv.check();
       delay(5);
       strip.show(); 
 }

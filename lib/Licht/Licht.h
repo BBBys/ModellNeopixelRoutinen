@@ -274,7 +274,6 @@ public:
 };
 /**
  * @brief Klasse für Fernseher-Simulation
- * 
  */
 class cTVLicht : public cBLicht
 {

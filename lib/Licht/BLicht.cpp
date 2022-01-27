@@ -3,7 +3,7 @@
  * @brief Funktionen zur Steuerung von Blinklichtern
  * 
  * @version 1.2
- * @date 26 25 Jan 2022 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 Okt 2021
+ * @date 27 26 25 Jan 2022 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  */
@@ -143,18 +143,25 @@ void cBlauLicht::check()
 ///  -------------------------------------------------------
 /**
  * @brief Construct a new Fernseher object
- * Fernseher-Simulation
+ * Fernseher-Simulation, Farbwechsel, mal schneller, mal langsamer
  * @param strip Adresse Neopixel
  * @param id Nummer des Pixels
  */
 cTVLicht::cTVLicht(Adafruit_NeoPixel *strip, int id) : cBLicht(strip, id)
 {
 }
+/**
+ * @brief Fernseher aus
+ */
 void cTVLicht::aus()
 {
     Stat = stAus;
     cBLicht::aus();
 }
+/**
+ * @brief Fernseher ein
+ * danach regelmäßig cTVLicht::check() aufrufen!
+ */
 void cTVLicht::ein()
 {
     cBLicht::ein();
@@ -162,14 +169,17 @@ void cTVLicht::ein()
     wechsel2 = 0;
     Stat = stBlink1;
 }
+/**
+ * @brief Fernseher-Licht ändern
+ */
 void cTVLicht::check()
 {
     unsigned long jetzt;
     unsigned int r, g, b;
-    //DbgOut("cTVLicht::check");
     jetzt = millis();
     if (jetzt > wechsel)
     {
+        //zufällige Farbe, wenig rot, viel Blau
         r = random(63);
         b = random(255);
         g = random(130);
@@ -181,7 +191,7 @@ void cTVLicht::check()
             if (jetzt > wechsel2)
             {
                 Stat = stBlink2;
-                wechsel2 = jetzt + random(6000, 12000);
+                wechsel2 = jetzt + random(6000, 18000);
             }
             break;
         case stBlink2: //langsame Wechsel
@@ -189,7 +199,7 @@ void cTVLicht::check()
             if (jetzt > wechsel2)
             {
                 Stat = stBlink1;
-                wechsel2 = jetzt + random(1000, 5000);
+                wechsel2 = jetzt + random(1000, 4000);
             }
             break;
 
