@@ -3,7 +3,7 @@
 
 ## Blinklichter
 - cBaulicht:   gelbes Blinklicht für Baustellen
-- cLaufLicht:  Lauf-Blinklicht für Absperrungen: gelbes Licht, das die Kette entlangläuft. Farbe kann mit geändert werden.
+- cLaufLicht:  Lauf-Blinklicht für Absperrungen: gelbes Licht, das die Kette entlangläuft. Farbe kann mit check() geändert werden.
 - c2BlauLicht: Zwei Blinklichter, blau oder gelb, die gleichzeitig und abwechselnd blinken. Für Modellautos: Polizei, Feuerwehr, Abschleppwagen ...
 
 ## Beleuchtung
