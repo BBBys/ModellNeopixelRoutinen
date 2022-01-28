@@ -2,7 +2,7 @@
  * @file Licht.h
  * @brief Funktionen zur Steuerung von Lichtern
  * @version 1.3
- * @date 26 25 15 Jan 2022 13 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
+ * @date 28 26 25 15 Jan 2022 13 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  * Info zu Neopixel: https://learn.adafruit.com/adafruit-neopixel-uberguide/ 
@@ -142,17 +142,15 @@ public:
 class cBLicht : public cNLicht
 {
 private:
+protected:
     enum Status
     {
         stAus,
         stBlink,
         stEin
-    } Stat;
-
-protected:
-    unsigned long wechsel, Tan, Taus;
+    }Stat;
+   unsigned long wechsel, Tan, Taus;
     unsigned long Blitzzeit = 100;
-
 public:
     enum BlArt
     {
@@ -208,20 +206,22 @@ public:
 class cBauLicht : public cBLicht
 {
 private:
+   cBLicht::Status Stat;
 protected:
 public:
     cBauLicht(Adafruit_NeoPixel *strip, int id,int pTan = 2500, int pTaus = 1000);
 };
 /**
  * @brief Klasse für Absperrungs-Lauflicht
- * 
+ * gelbes Licht, das die Kette entlangläuft
  */
 class cLaufLicht : public cBauLicht
 {
 private:
     unsigned int iLicht, // Offset aktuelles Licht zu Start-LichtID
         iBlink, iLauf;
-    const unsigned int nBlink = 4, nLauf = 3;
+    const unsigned int nBlink = 4, //4 mal blinken,
+    nLauf = 3;  //  3 mal durchlaufen
     uint32_t FarbeDunkler, FarbeDunkel;
 
 protected:
@@ -240,7 +240,7 @@ protected:
 
 public:
     cLaufLicht(Adafruit_NeoPixel *strip, int id, int Anzahl, int pTan = 100);
-    void farbe(uint8_t r, uint8_t g, uint8_t b);
+    void farbe(uint8_t r=111, uint8_t g=25, uint8_t b=0);
     void check();
     void blinken(bool an = true);
     void aus();

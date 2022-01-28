@@ -31,9 +31,6 @@ cNLicht::cNLicht(Adafruit_NeoPixel *strip, int id, long pFarbe) : cLicht(id)
  */
 void cNLicht::aus()
 {
-#ifndef NDEBUG
-    Serial.printf("cNLicht::aus(ID=%d)\n", LichtID);
-#endif
     Strip->setPixelColor(LichtID, 0);
     istAn = false;
 }

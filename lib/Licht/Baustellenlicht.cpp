@@ -2,7 +2,7 @@
  * @file Baustellenlicht.cpp
  * @brief Funktionen zur Steuerung von Blinklichtern an Baustellen
  * @version 1.0
- * @date 25 Jan 2022 1 Dez 23 4 3 2 1 Nov 31 Okt 2021
+ * @date 28 25 Jan 2022 1 Dez 23 4 3 2 1 Nov 31 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  * 
@@ -20,27 +20,39 @@
  */
 cBauLicht::cBauLicht(Adafruit_NeoPixel *strip, int id,int pTan, int pTaus) : cBLicht(strip, id, blaGelb, pTan, pTaus)
 {
-    Farbe = strip->Color(222, 50, 0);
+    Farbe = strip->Color(222, 100, 0);
 }
 /// ---------------------------------------------------------------------
 /**
  * @brief Construct a new Lauf-Blinklicht object
- * Lauf-Blinklicht für Absperrungen
+ * Lauf-Blinklicht für Absperrungen: gelbes Licht, das die Kette entlangläuft. 
+ * Farbe kann mit farbe() geändert werden.
  * @param strip Adresse Neopixel
  * @param id Nummer des Pixels
- * @param Anzahl der Lichter
+ * @param pAnzahl Anzahl der Lichter
  */
 cLaufLicht::cLaufLicht(Adafruit_NeoPixel *strip, int id, int pAnzahl, int pTan) : cBauLicht(strip, id, pTan)
 {
     Anzahl = pAnzahl;
-    farbe(111, 25, 0);
+    farbe(222, 100, 10);
 }
+/**
+ * @brief Farbe einstellen, default:gelb
+ * @param r 
+ * @param g 
+ * @param b 
+ */
 void cLaufLicht::farbe(uint8_t r, uint8_t g, uint8_t b)
 {
     Farbe = Strip->Color(r, g, b);
-    FarbeDunkler = Strip->Color(r/3, g/4, b/3);
-    FarbeDunkel = Strip->Color(r/16, g/16, b/16);
+    FarbeDunkler = Strip->Color(r/6, g/8, b/6);
+    FarbeDunkel = Strip->Color(r/24, g/24, b/24);
 }
+/**
+ * @brief Absperr-Blinklicht-Kette ein- oder ausschalten
+ * 
+ * @param pAn true: ein, false: aus. Default: ein
+ */
 void cLaufLicht::blinken(bool pAn)
 {
     if (pAn)
@@ -53,22 +65,23 @@ void cLaufLicht::blinken(bool pAn)
     }
     else
     {
+        istAn = false;
         Stat = stAus;
-        aus();
+        for (size_t i = 0; i < Anzahl; i++)
+            Strip->setPixelColor(LichtID + i, 0);
     }
 }
 /**
- * @brief alle Neopixel der Kette ausschalten
- * 
+ * @brief Kette ausschalten
+ * nur zur Kompatibilität
  */
 void cLaufLicht::aus()
 {
-    for (size_t i = 0; i < Anzahl; i++)
-    {
-        Strip->setPixelColor(LichtID + i, 0);
-    }
-    istAn = false;
+    blinken(false);
 }
+/**
+ * @brief Kette blinken lassen
+ */
 void cLaufLicht::check()
 {
     unsigned long jetzt;
@@ -117,19 +130,19 @@ void cLaufLicht::check()
         }
         break;
     case stLauf3:
-        if (jetzt > wechsel)
+        if (jetzt > wechsel)    //gesamte Kette ein
         {
             for (size_t i = 0; i < Anzahl; i++)
                 Strip->setPixelColor(LichtID + i, Farbe);
-            wechsel = jetzt + Blitzzeit;
+            wechsel = jetzt + Blitzzeit; //100 ms warten
             Stat = stLauf4;
         }
         break;
-    case stLauf4:
+    case stLauf4:   //gesamte Kette ist ein
         if (jetzt > wechsel)
         {
             for (size_t i = 0; i < Anzahl; i++)
-                Strip->setPixelColor(LichtID + i, Farbe);
+                Strip->setPixelColor(LichtID + i, FarbeDunkel);
             iBlink++;
             if (iBlink < nBlink)
             {

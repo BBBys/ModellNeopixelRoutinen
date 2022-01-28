@@ -79,7 +79,7 @@ void cBLicht::check()
             setzen(istAn);
             wechsel = istAn ? jetzt + Tan : jetzt + Taus;
         }
-    }
+    } 
 }
 ///  -------------------------------------------------------
 /**
@@ -384,7 +384,6 @@ void cPartyLicht::blinken(bool pAn)
 void cPartyLicht::check()
 {
     unsigned long jetzt;
-    // Serial.print(Stat);
     jetzt = millis();
     switch (Stat)
     {
@@ -396,7 +395,6 @@ void cPartyLicht::check()
             Strip->setPixelColor(LichtID + iLicht, Farben[FarbIndex]);
             x = (int)FarbIndex + (random(0, 5) - 2);
             FarbIndex = x % nFarben;
-            //Serial.println(FarbIndex);
             wechsel = jetzt + 1000 / Anzahl; //die Kette in 1 s füllen
             iLicht++;
             Stat = (iLicht < Anzahl) ? stLauf1 : stLauf2;
@@ -496,9 +494,6 @@ cLRLicht::cLRLicht(Adafruit_NeoPixel *strip, int id) : cBLicht(strip, id)
 }
 void cLRLicht::ein()
 {
-#ifndef NDEBUG
-    Serial.println("cLRLicht::ein");
-#endif
     Stat = stStart1;
     nZuenden = random(1, 3);
     iZuenden = 0;
@@ -506,9 +501,6 @@ void cLRLicht::ein()
 }
 void cLRLicht::aus(unsigned int sekunden)
 {
-#ifndef NDEBUG
-    Serial.println("cLRLicht::aus");
-#endif
     if (sekunden < 1)
     {
         cNLicht::aus();
@@ -524,10 +516,6 @@ void cLRLicht::aus(unsigned int sekunden)
 void cLRLicht::check()
 {
     unsigned long jetzt;
-    //     #ifndef NDEBUG
-    //     Serial.print("cLRLicht::check ");
-    //     Serial.println(Stat);
-    // #endif
     jetzt = millis();
     switch (Stat)
     {

@@ -1,9 +1,8 @@
 /**
  * @file LichtfunkTest.cpp
- * @author BBB
  * @brief Testprogramm für alle Lichtfunktionen
  * @version 1.1
- * @date 27 26 25 18 Jan 2022 3 Dez 7 6 4 3 2 1 Nov 31 30 29 28 Okt 2021
+ * @date 28 27 26 25 18 Jan 2022 3 Dez 7 6 4 3 2 1 Nov 31 30 29 28 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  * 
@@ -27,7 +26,9 @@ cSchreibLicht Stl(&strip, 8);
 cLRLicht Lr(&strip, 9);
 // Fernseher
 cTVLicht Tv(&strip, 10);
-
+// Blinklichter für Baustellen
+cBauLicht Bau(&strip, 11), Bau2(&strip, 12, 2200, 1100);
+cLaufLicht Lauf(&strip, 20, 10);
 int art = 0;
 const int maxart = 1, dauer = 30;
 long int anfang, ende;
@@ -53,11 +54,13 @@ void setup()
   Stl.ein();
   Lr.ein();
   Tv.ein();
+  Bau.blinken();
+  Bau2.blinken();
+  Lauf.blinken();
 
   anfang = millis();
   ende = anfang + (long int)(1000 * dauer);
   delay(300);
-  Serial.println("ein()");
   pinMode(NEOPIN, OUTPUT);
 }
 
@@ -80,6 +83,9 @@ void loop()
       BL2d.check();
       Lr.check();
       Tv.check();
+      Bau2.check();
+      Bau.check();
+      Lauf.check();
       delay(5);
       strip.show(); 
 }
