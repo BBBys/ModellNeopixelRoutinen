@@ -2,10 +2,9 @@
  * @file Baustellenlicht.cpp
  * @brief Funktionen zur Steuerung von Blinklichtern an Baustellen
  * @version 1.0
- * @date 28 25 Jan 2022 1 Dez 23 4 3 2 1 Nov 31 Okt 2021
+ * @date 29 28 25 Jan 2022 1 Dez 23 4 3 2 1 Nov 31 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
- * 
  */
 
 #include "Licht.h"
@@ -18,10 +17,7 @@
  * @param pTan An-Zeit in ms, default 2,5 s
  * @param pTaus Aus-Zeit in ms, default 1 s
  */
-cBauLicht::cBauLicht(Adafruit_NeoPixel *strip, int id,int pTan, int pTaus) : cBLicht(strip, id, blaGelb, pTan, pTaus)
-{
-    Farbe = strip->Color(222, 100, 0);
-}
+cBauLicht::cBauLicht(Adafruit_NeoPixel *strip, int id,int pTan, int pTaus) : cBLicht(strip, id, blaGelb, pTan, pTaus){}
 /// ---------------------------------------------------------------------
 /**
  * @brief Construct a new Lauf-Blinklicht object

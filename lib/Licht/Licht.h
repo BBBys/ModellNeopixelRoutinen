@@ -2,8 +2,8 @@
  * @file Licht.h
  * @brief Funktionen zur Steuerung von Lichtern
  * @version 1.3
- * @date 28 26 25 15 Jan 2022 13 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
- * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
+ * @date 29 28 26 25 15 Jan 2022 13 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
+ * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland <Human-Factors@gmx.net>
  * @copyright Copyright (c) 2021-2022 B. Borys
  * Info zu Neopixel: https://learn.adafruit.com/adafruit-neopixel-uberguide/ 
  */
@@ -160,7 +160,7 @@ public:
     };
     void set(int pTan, int pTaus);
     void set(int pTan, int pTaus, int pW);
-    cBLicht(Adafruit_NeoPixel *strip, int id, BlArt art = blaGelb, int pTan = 2000, int pTaus = 500);
+    cBLicht(Adafruit_NeoPixel *strip, int id, BlArt art = blaGelb, int pTan = 5000, int pTaus = 2000);
     virtual void blinken(bool pAn = true);
     virtual void check();
 };
@@ -209,7 +209,7 @@ private:
    cBLicht::Status Stat;
 protected:
 public:
-    cBauLicht(Adafruit_NeoPixel *strip, int id,int pTan = 2500, int pTaus = 1000);
+    cBauLicht(Adafruit_NeoPixel *strip, int id,int pTan = 3000, int pTaus = 500);
 };
 /**
  * @brief Klasse für Absperrungs-Lauflicht
@@ -266,11 +266,11 @@ protected:
     } Stat;
 
 public:
-    cBlauLicht(Adafruit_NeoPixel *strip, int id, BlArt art = blaPolizei, int pTan = 33, int pTaus = 100);
-    virtual void blinken(bool pAn = true);
-    virtual void check();
-    void aus(int i);
-    void ein(int i);
+    cBlauLicht(Adafruit_NeoPixel *strip, int id, BlArt art = blaPolizei, int pTan = 66, int pTaus = 200);
+    // virtual void blinken(bool pAn = true);
+    // virtual void check();
+    // void aus(int i);
+    // void ein(int i);
 };
 /**
  * @brief Klasse für Fernseher-Simulation

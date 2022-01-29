@@ -2,7 +2,7 @@
  * @file LichtfunkTest.cpp
  * @brief Testprogramm für alle Lichtfunktionen
  * @version 1.1
- * @date 28 27 26 25 18 Jan 2022 3 Dez 7 6 4 3 2 1 Nov 31 30 29 28 Okt 2021
+ * @date 29 28 27 26 25 18 Jan 2022 3 Dez 7 6 4 3 2 1 Nov 31 30 29 28 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  * 
@@ -15,6 +15,10 @@
 Adafruit_NeoPixel strip(0);//NEOLEDS,99);
 
 // die Lichter
+// Blinklicht
+cBLicht Bll(&strip, 15);
+// Blaulicht, 2 Autos
+cBlauLicht Bla(&strip, 13), Blb(&strip, 14, cBLicht::blaPolizei,10,100);
 // Blinklichter für 4 Autos. Damit sie nicht gleich aussehen, sind Farben und Zeiten variiert
 c2BlauLicht 
 BL2d(&strip, 0,cBLicht::blaPolizei), // 1. Polizeiauto
@@ -57,6 +61,9 @@ void setup()
   Bau.blinken();
   Bau2.blinken();
   Lauf.blinken();
+  Bll.blinken();
+  Bla.blinken();
+  Blb.blinken();
 
   anfang = millis();
   ende = anfang + (long int)(1000 * dauer);
@@ -77,15 +84,18 @@ void loop()
       else
         Lr.ein();
   }
-      BL2a.check();
-      BL2b.check();
-      BL2c.check();
-      BL2d.check();
-      Lr.check();
-      Tv.check();
-      Bau2.check();
-      Bau.check();
-      Lauf.check();
-      delay(5);
-      strip.show(); 
+  Bll.check();
+  Bla.check();
+  Blb.check();
+  BL2a.check();
+  BL2b.check();
+  BL2c.check();
+  BL2d.check();
+  Lr.check();
+  Tv.check();
+  Bau2.check();
+  Bau.check();
+  Lauf.check();
+  delay(5);
+  strip.show(); 
 }

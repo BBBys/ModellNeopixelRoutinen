@@ -2,7 +2,7 @@
  * @file NLicht.cpp
  * @brief Funktionen für Neopixiel-Licht
  * @version 1.1
- * @date 26 Jan 2022 13 Dez 23 6 4 3 2 Nov 31 30 Okt 2021
+ * @date 28 26 Jan 2022 13 Dez 23 6 4 3 2 Nov 31 30 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  */

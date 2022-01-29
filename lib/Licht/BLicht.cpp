@@ -1,9 +1,8 @@
 /**
  * @file BLicht.cpp
  * @brief Funktionen zur Steuerung von Blinklichtern
- * 
  * @version 1.2
- * @date 27 26 25 Jan 2022 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 Okt 2021
+ * @date 29 28 27 26 25 Jan 2022 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  */
@@ -14,6 +13,13 @@ void cBLicht::set(int pTan, int pTaus)
 {
     set(pTan, pTaus, 0);
 }
+/**
+ * @brief Parameter für Blinklicht, alle in ms
+ * 
+ * @param pTan An-Zeit
+ * @param pTaus Aus-Zeit
+ * @param pW Zeit bis Start
+ */
 void cBLicht::set(int pTan, int pTaus, int pW)
 {
     Tan = pTan;
@@ -24,7 +30,7 @@ void cBLicht::set(int pTan, int pTaus, int pW)
 }
 /**
  * @brief Construct a new Blinklicht object
- * einfaches Blinklicht
+ * einfaches Blinklicht, Oberklasse für andere Blinklichter
  * @param strip Adresse Neopixel
  * @param id Nummer des Pixels
  * @param pTan An-Zeit in ms
@@ -84,62 +90,52 @@ void cBLicht::check()
 ///  -------------------------------------------------------
 /**
  * @brief Construct a new Blaulicht object
- * Blaulicht
+ * Blaulicht, ein Pixel
  * @param strip Adresse Neopixel
  * @param id Nummer des Pixels
- * @param pTan An-Zeit in ms
- * @param pTaus Aus-Zeit in ms
+ * @param art 
+ * @param pTan 
+ * @param pTaus 
  */
 cBlauLicht::cBlauLicht(Adafruit_NeoPixel *strip, int id, BlArt art , int pTan, int pTaus) : cBLicht(strip, id, art, pTan, pTaus) {}
 
-void cBlauLicht::blinken(bool pAn)
-{
-    if (pAn)
-        Stat = stBlink1;
-    else
-    {
-        Stat = stAus;
-        cNLicht::aus();
-    }
-}
-void cBlauLicht::check()
-{
-    unsigned long jetzt;
-    //DbgOut("cBlauLicht::check");
-    jetzt = millis();
-    switch (Stat)
-    {
-        /// stBlink1 / 2: nBlink-mal an, dann Pause
-    case stBlink1:
-        if (jetzt > wechsel)
-        {
-            istAn = !istAn;
-            setzen(istAn);
-            wechsel = istAn ? jetzt + Tan : jetzt + Taus;
-            if (!istAn)
-                iBlink++;
-            if (iBlink > nBlink)
-            {
-                Stat = stBlink2;
-                wechsel = jetzt + 2 * Taus;
-            }
-        }
-        break;
-    case stBlink2:
-        if (jetzt > wechsel)
-        {
-            Stat = stBlink1;
-            iBlink = 0;
-        };
-        break;
-    case stBlink3:
-        break;
-    case stBlink4:
-    default:
-        break;
-
-    } //switch
-}
+// void cBlauLicht::blinken(bool pAn)
+// {
+//     if (pAn){
+//         wechsel = 0;
+//         Stat = stBlink1;}
+//     else
+//     {
+//         Stat = stAus;
+//         cNLicht::aus();
+//     }
+// }
+// void cBlauLicht::check()
+// {
+//     unsigned long jetzt;
+//     jetzt = millis();
+//     Serial.printf("cBla:check %d ", Stat);
+//     switch (Stat)
+//     {
+//     case stEin:
+//     case stBlink1:
+//         Serial.println("blink1");
+//         if (jetzt > wechsel)
+//         {
+//             Serial.println("wechsel");
+//             istAn = !istAn;
+//             setzen(istAn);
+//         }
+//         break;
+//     case stBlink2:
+//     case stBlink3:
+//     case stBlink4:
+//         Stat = stBlink1;//nur dieses soll sein
+//     case stAus:
+//     default:
+//         break;
+//     } //switch
+// }
 ///  -------------------------------------------------------
 /**
  * @brief Construct a new Fernseher object

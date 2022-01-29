@@ -33,7 +33,6 @@ bool cLicht::istEin()
  */
  void cLicht::setzen(bool p)
 {
-  //DbgOut("cLicht::setzen");
     if (p)
         ein();
     else
