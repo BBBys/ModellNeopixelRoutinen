@@ -70,9 +70,14 @@ void cDLicht::hin()
     }
     ein();
 }
-cDLicht::cDLicht(int id) : cLicht(id)
+/**
+ * @brief Construct a new cDLicht object
+ * @param PinNummer 
+ * @bug wird nicht weiterentwickelt
+ */
+cDLicht::cDLicht(int PinNummer) : cLicht(PinNummer)
 {
-    pinMode(id, OUTPUT);
+    pinMode(PinNummer, OUTPUT);
     aus();
 }
 void cDLicht::aus()

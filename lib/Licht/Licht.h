@@ -11,7 +11,10 @@
 #define Licht_H
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
-
+/**
+ * @brief Farben als RGB-Werte
+ * 
+ */
 enum RGBFarben
 {
     NEOROT = 0xff0000,
@@ -20,9 +23,13 @@ enum RGBFarben
     NEOBLAU = 0x0000ff,
     NEOWEISS = 0xffffff
 };
+/**
+ * @brief Farben als Farbton 
+ * von Rot (0) über Grün (21 845) und Blau (43 691) bis wieder Rot (65 336)
+ */
 enum HueFarben
 {
-    HUEROT      = 0,
+    HUEROT      = 0,            // 0
     HUEGELB     = 10923U,       // 65336/6
     HUEGRUEN    = 21845U,       // 65336/3
     HUEBLAU     = 43691U,       // 65336*2/3
@@ -32,13 +39,13 @@ enum HueFarben
 
 /**
  * @brief Basisklasse Licht/Lampe/Beleuchtung
- * 
+ * 220130
  */
 class cLicht
 {
 private:
 protected:
-    int LichtID; // Pinnumer für LED oder Adresse für Neopixel
+    int LichtID; /// Pinnumer für LED oder Adresse für Neopixel
     bool istAn;
 
 public:
@@ -50,12 +57,14 @@ public:
 };
 /**
  * @brief Klasse für Licht am Digitalausgang
- * 
+ * eine einzelne LED an einem PWM-Ausgang. Einschalten, ausschalten, auf- und abblenden ist implementiert.
+ * 220130
+ * @warning nicht weiter ausgereift
+ * @see cNLicht
  */
 class cDLicht : cLicht
 {
 private:
-    /* data */
 public:
     cDLicht(int id);
     ~cDLicht();
@@ -137,7 +146,8 @@ public:
 };
 /**
  * @brief Klasse für Blinklicht.
- * Oberklasse für andere blinkende Lichter
+ * Oberklasse für andere blinkende Lichter.
+ * 220130
  */
 class cBLicht : public cNLicht
 {
@@ -199,9 +209,10 @@ public:
 };
 /**
  * @brief Klasse für einfaches gelbes Baustellen-Blinklicht
- * ein einzelnes Pixel
- * Zeit einstellbar mit set(...) aus cBLicht
- * Steuerung über check() aus cBLicht
+ * ein einzelnes Pixel.
+ * Zeit einstellbar mit set(...) aus cBLicht,
+ * Steuerung über check() aus cBLicht.
+ * 220130
  */
 class cBauLicht : public cBLicht
 {
@@ -247,7 +258,7 @@ public:
 };
 /**
  * @brief Klasse für blinkendes Blaulicht
- * 
+ * 220130
  */
 class cBlauLicht : public cBLicht
 {
@@ -301,7 +312,7 @@ public:
 };
 /**
  * @brief zwei blinkendes Blaulichter
- * 
+ * 220130
  */
 class c2BlauLicht : public cBlauLicht
 {

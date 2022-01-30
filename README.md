@@ -14,3 +14,9 @@
 
 ## Aktivitäten
 - cTVLicht: Fernseher-Simulation, Farbwechsel, mal schneller, mal langsamer
+
+# einzelne LEDs (keine Neopixel)
+- cDLicht: Licht am Digitalausgang, eine einzelne LED an einem PWM-Ausgang. Einschalten, ausschalten, auf- und abblenden ist implementiert.
+
+# Basisklasse
+- cLicht: speichert ID (=Pinnummer für LED-Anschluss oder Pixel-ID für Neopixel) und Status (an/aus)
