@@ -8,17 +8,11 @@
  */
 #include "Licht.h"
 /**
- * @brief Construct a new Neopixel Licht object
- * Strip-Objekt in Pixel-Adresse übernehmen, Farbe auf Weiß
- * @param strip 
- * @param id 
+ * @brief Construct a new cNLicht object
+ * @param strip Neopixel-Objekt
+ * @param id Nummer des Pixels
+ * @param pFarbe Farbe als RGB
  */
-cNLicht::cNLicht(Adafruit_NeoPixel *strip, int id) : cLicht(id)
-{
-    Strip = strip;
-    aus();
-    Farbe =NEOWEISS;
-}
 cNLicht::cNLicht(Adafruit_NeoPixel *strip, int id, long pFarbe) : cLicht(id)
 {
     Strip = strip;
@@ -27,7 +21,6 @@ cNLicht::cNLicht(Adafruit_NeoPixel *strip, int id, long pFarbe) : cLicht(id)
 }
 /**
  * @brief Neopixel ausschalten
- * 
  */
 void cNLicht::aus()
 {
@@ -36,7 +29,6 @@ void cNLicht::aus()
 }
 void cNLicht::ein()
 {
-    //DbgOut("cNLicht::ein");
     Strip->setPixelColor(LichtID, Farbe);
     istAn = true;
 }
@@ -54,7 +46,6 @@ cSchreibLicht::cSchreibLicht(Adafruit_NeoPixel *strip, int id) : cNLicht(strip, 
 }
 /**
  * @brief Construct a new Lichterkette object
- * 
  * @param strip 
  * @param id 
  * @param pAnzahl 
@@ -66,11 +57,12 @@ cKetteLicht::cKetteLicht(Adafruit_NeoPixel *strip, int id, int pAnzahl, uint32_t
 }
 void cKetteLicht::aus()
 {
-    for (size_t i = 0; i < Anzahl; i++)
-    {
-        Strip->setPixelColor(LichtID + i, 0);
-    }
+    for (size_t i = 0; i < Anzahl; i++) Strip->setPixelColor(LichtID + i, 0);
 }
+/**
+ * @brief einschalten
+ * @param pFarbe Farbe in RGB wird gesetzt, wenn > 0
+ */
 void cKetteLicht::ein(uint32_t pFarbe)
 {
     if (pFarbe > 0)

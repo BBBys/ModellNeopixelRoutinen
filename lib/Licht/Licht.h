@@ -74,37 +74,33 @@ public:
     void hin();
 };
 /**
- * @brief Klasse für Licht an NeoPixel-Kette
- * 
+ * @brief Klasse für Licht an NeoPixel-Kette 220131
+ * Diese Basisklasse arbeitet nur mit einem Pixel, abgeleitete Klassen müssen die Funktionen ein() und aus() ändern
  */
 class cNLicht : public cLicht
 {
 private:
 protected:
     Adafruit_NeoPixel *Strip;
-    uint32_t Farbe;
-
+    uint32_t Farbe; /// Farbe als RGB
 public:
-    cNLicht(Adafruit_NeoPixel *strip, int id);
-    cNLicht(Adafruit_NeoPixel *strip, int id, long pFarbe);
+    cNLicht(Adafruit_NeoPixel *strip, int id, long pFarbe = NEOWEISS);
     virtual void aus();
     virtual void ein();
     ~cNLicht();
 };
 /**
- * @brief Klasse für mehrere Lichter einfarbig an NeoPixel-Kette
- * 
+ * @brief Klasse für mehrere Lichter einfarbig an NeoPixel-Kette 220131
  */
 class cKetteLicht : public cNLicht
 {
 private:
 protected:
     unsigned int Anzahl;
-
 public:
     cKetteLicht(Adafruit_NeoPixel *strip, int id, int Anzahl, uint32_t Farbe = NEOWEISS);
     virtual void aus();
-    virtual void ein(uint32_t Farbe = NEOWEISS);
+    virtual void ein(uint32_t Farbe = 0);
 };
 /**
  * @brief Klasse für mehrere Lichter zweifarbig an NeoPixel-Kette
