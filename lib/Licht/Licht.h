@@ -172,7 +172,7 @@ public:
 };
 /**
  * @brief Klasse für Leuchtstoffröhre
- * 
+ * 220202
  */
 class cLRLicht : public cBLicht
 {
@@ -180,6 +180,7 @@ private:
     enum Status
     {
         stAus,
+        stEinWarten,
         stStart1,
         stStart2,
         stStart3,
@@ -199,7 +200,7 @@ public:
     //void set(int pTan, int pTaus, int pW);
     cLRLicht(Adafruit_NeoPixel *strip, int id);
     //virtual void blinken(bool pAn = true);
-    void ein();
+    void ein(unsigned int Wartensekunden=0);
     void aus(unsigned int WartenSekunden = 0);
     void check();
 };
@@ -349,8 +350,8 @@ public:
     void check();
 };
 /**
- * @brief Klasse für Schreibtischlampe an NeoPixel-Kette
- * 
+ * @brief nichts weiter als eine funzelige Schreibtischlampe 
+ * 220202
  */
 class cSchreibLicht : public cNLicht
 {

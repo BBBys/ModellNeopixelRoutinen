@@ -488,16 +488,34 @@ cLRLicht::cLRLicht(Adafruit_NeoPixel *strip, int id) : cBLicht(strip, id)
     FarbeLR = strip->Color(200, 200, 180);
     FarbeZuenden = strip->Color(45, 30, 0);
 }
-void cLRLicht::ein()
+/**
+ * @brief Leuchtstoffröhre einschalten
+ * damit nich alle gleichzeitig angehen, kann man eine Verzögerungszeit angeben
+ * @param Wartensekunden starten nach so viel Sekunden
+ */
+void cLRLicht::ein(unsigned int Wartensekunden)
 {
-    Stat = stStart1;
-    nZuenden = random(1, 3);
-    iZuenden = 0;
-    istAn = true;
+    if (Wartensekunden < 1)
+    {
+        Stat = stStart1;
+        nZuenden = random(1, 3);
+        iZuenden = 0;
+        istAn = true;
+    }
+    else
+    {
+        wechsel = millis() + 1000UL * (unsigned long)Wartensekunden;
+        Stat = stEinWarten;
+    }
 }
-void cLRLicht::aus(unsigned int sekunden)
+/**
+ * @brief Leuchtstoffröhre ausschalten
+ * damit nich alle gleichzeitig ausgehen, kann man eine Verzögerungszeit angeben
+ * @param Wartensekunden aus nach so viel Sekunden
+ */
+void cLRLicht::aus(unsigned int Wartensekunden)
 {
-    if (sekunden < 1)
+    if (Wartensekunden < 1)
     {
         cNLicht::aus();
         Stat = stAus;
@@ -505,7 +523,7 @@ void cLRLicht::aus(unsigned int sekunden)
     }
     else
     {
-        wechsel = millis() + 1000UL * (unsigned long)sekunden;
+        wechsel = millis() + 1000UL * (unsigned long)Wartensekunden;
         Stat = stAusWarten;
     }
 }
@@ -515,6 +533,11 @@ void cLRLicht::check()
     jetzt = millis();
     switch (Stat)
     {
+    case stEinWarten:
+        if (jetzt > wechsel)
+            ein();
+        else
+            break;
     case stStart1:
         wechsel = jetzt + Blitzzeit * random(8, 16);
         Strip->setPixelColor(LichtID, FarbeZuenden);
