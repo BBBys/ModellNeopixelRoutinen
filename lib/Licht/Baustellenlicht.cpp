@@ -2,7 +2,7 @@
  * @file Baustellenlicht.cpp
  * @brief Funktionen zur Steuerung von Blinklichtern an Baustellen
  * @version 1.0
- * @date 29 28 25 Jan 2022 1 Dez 23 4 3 2 1 Nov 31 Okt 2021
+ * @date 6 Feb 29 28 25 Jan 2022 1 Dez 23 4 3 2 1 Nov 31 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  */
@@ -30,7 +30,7 @@ cBauLicht::cBauLicht(Adafruit_NeoPixel *strip, int id,int pTan, int pTaus) : cBL
 cLaufLicht::cLaufLicht(Adafruit_NeoPixel *strip, int id, int pAnzahl, int pTan) : cBauLicht(strip, id, pTan)
 {
     Anzahl = pAnzahl;
-    farbe(222, 100, 10);
+    farbe();    // default-Farbe
 }
 /**
  * @brief Farbe einstellen, default:gelb
@@ -51,15 +51,15 @@ void cLaufLicht::farbe(uint8_t r, uint8_t g, uint8_t b)
  */
 void cLaufLicht::blinken(bool pAn)
 {
-    if (pAn)
-    {
+    if (pAn)    // einschalten, Startbedingung
+    {   
         iLicht = 0;
         iLauf = 0;
         istAn = true;
         Stat = stLauf1;
         wechsel = 0;
     }
-    else
+    else    //ausschalten
     {
         istAn = false;
         Stat = stAus;
@@ -81,7 +81,6 @@ void cLaufLicht::aus()
 void cLaufLicht::check()
 {
     unsigned long jetzt;
-
     jetzt = millis();
     switch (Stat)
     {
@@ -89,33 +88,23 @@ void cLaufLicht::check()
         if (jetzt > wechsel)
         {
             Strip->setPixelColor((LichtID + (iLicht + 4) % Anzahl), Farbe);        //der erste
-            //Strip->setPixelColor((LichtID + (iLicht + 3) % Anzahl), Farbe);        //der erste
             Strip->setPixelColor((LichtID + (iLicht + 2) % Anzahl), FarbeDunkler); //der folgende
-            //Strip->setPixelColor((LichtID + (iLicht + 1) % Anzahl), FarbeDunkler); //der folgende
-            //Strip->setPixelColor((LichtID + iLicht % Anzahl), FarbeDunkler);       //der dritte
             wechsel = jetzt + Blitzzeit;
             Stat = stLauf2;
         }
         break;
-
     case stLauf2:
         if (jetzt > wechsel)
         {
             wechsel = jetzt + Tan;
             Strip->setPixelColor((LichtID + iLicht % Anzahl), FarbeDunkel);   //der dritte auf ganz dunkel
             iLicht++;
-            if (iLicht < Anzahl)
-            {
-                Stat = stLauf1;
-            }
+            if (iLicht < Anzahl)Stat = stLauf1;
             else
             {
                 iLicht = 0;
                 iLauf++;
-                if (iLauf < nLauf)
-                {
-                    Stat = stLauf1;
-                }
+                if (iLauf < nLauf) Stat = stLauf1;
                 else
                 {
                     iLauf = 0;
@@ -128,8 +117,7 @@ void cLaufLicht::check()
     case stLauf3:
         if (jetzt > wechsel)    //gesamte Kette ein
         {
-            for (size_t i = 0; i < Anzahl; i++)
-                Strip->setPixelColor(LichtID + i, Farbe);
+            for (size_t i = 0; i < Anzahl; i++) Strip->setPixelColor(LichtID + i, Farbe);
             wechsel = jetzt + Blitzzeit; //100 ms warten
             Stat = stLauf4;
         }
@@ -137,8 +125,7 @@ void cLaufLicht::check()
     case stLauf4:   //gesamte Kette ist ein
         if (jetzt > wechsel)
         {
-            for (size_t i = 0; i < Anzahl; i++)
-                Strip->setPixelColor(LichtID + i, FarbeDunkel);
+            for (size_t i = 0; i < Anzahl; i++) Strip->setPixelColor(LichtID + i, FarbeDunkel);
             iBlink++;
             if (iBlink < nBlink)
             {
@@ -152,7 +139,6 @@ void cLaufLicht::check()
             }
         }
         break;
-
     default:
         Stat = stLauf1;
         wechsel = 0;

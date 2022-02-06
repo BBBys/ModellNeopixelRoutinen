@@ -2,7 +2,7 @@
  * @file Licht.h
  * @brief Funktionen zur Steuerung von Lichtern
  * @version 1.3
- * @date 29 28 26 25 15 Jan 2022 13 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
+ * @date 6 Feb 29 28 26 25 15 Jan 2022 13 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland <Human-Factors@gmx.net>
  * @copyright Copyright (c) 2021-2022 B. Borys
  * Info zu Neopixel: https://learn.adafruit.com/adafruit-neopixel-uberguide/ 
@@ -222,6 +222,7 @@ public:
 /**
  * @brief Klasse für Absperrungs-Lauflicht
  * gelbes Licht, das die Kette entlangläuft
+ * 220206
  */
 class cLaufLicht : public cBauLicht
 {
@@ -230,8 +231,7 @@ private:
         iBlink, iLauf;
     const unsigned int nBlink = 4, //4 mal blinken,
     nLauf = 3;  //  3 mal durchlaufen
-    uint32_t FarbeDunkler, FarbeDunkel;
-
+    uint32_t FarbeDunkler, FarbeDunkel; // ausblenden
 protected:
     unsigned int Anzahl;
     enum Status
@@ -245,7 +245,6 @@ protected:
         stLauf6,
         stEin
     } Stat;
-
 public:
     cLaufLicht(Adafruit_NeoPixel *strip, int id, int Anzahl, int pTan = 100);
     void farbe(uint8_t r=111, uint8_t g=25, uint8_t b=0);
