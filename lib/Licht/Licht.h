@@ -2,7 +2,7 @@
  * @file Licht.h
  * @brief Funktionen zur Steuerung von Lichtern
  * @version 1.3
- * @date 6 Feb 29 28 26 25 15 Jan 2022 13 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
+ * @date 8 6 Feb 29 28 26 25 15 Jan 2022 13 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 26 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland <Human-Factors@gmx.net>
  * @copyright Copyright (c) 2021-2022 B. Borys
  * Info zu Neopixel: https://learn.adafruit.com/adafruit-neopixel-uberguide/ 
@@ -280,13 +280,13 @@ public:
     // void ein(int i);
 };
 /**
- * @brief Klasse für Fernseher-Simulation
+ * @brief Klasse für Fernseher-Simulation: bläuliches Farbflimmern 
+ * 220208
  */
 class cTVLicht : public cBLicht
 {
 private:
     unsigned long wechsel2 = 0;
-
 protected:
     const int nBlink = 3;
     int iBlink = 0;
@@ -299,7 +299,6 @@ protected:
         stBlink4,
         stEin
     } Stat;
-
 public:
     cTVLicht(Adafruit_NeoPixel *strip, int id);
     virtual void check();

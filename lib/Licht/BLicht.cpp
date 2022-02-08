@@ -2,7 +2,7 @@
  * @file BLicht.cpp
  * @brief Funktionen zur Steuerung von Blinklichtern
  * @version 1.2
- * @date 29 28 27 26 25 Jan 2022 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 Okt 2021
+ * @date 8 Feb 29 28 27 26 25 Jan 2022 1 Dez 23 7 6 5 4 3 2 1 Nov 31 30 29 28 Okt 2021
  * @author Dr. Burkhard Borys, Zeller Ring 15, 34246 Vellmar, Deutschland
  * @copyright Copyright (c) 2021-2022 B. Borys
  */
@@ -139,7 +139,7 @@ cBlauLicht::cBlauLicht(Adafruit_NeoPixel *strip, int id, BlArt art , int pTan, i
 ///  -------------------------------------------------------
 /**
  * @brief Construct a new Fernseher object
- * Fernseher-Simulation, Farbwechsel, mal schneller, mal langsamer
+ * Fernseher-Simulation, Farbwechsel, bläulich, mal schneller, mal langsamer
  * @param strip Adresse Neopixel
  * @param id Nummer des Pixels
  */
@@ -198,8 +198,8 @@ void cTVLicht::check()
                 wechsel2 = jetzt + random(1000, 4000);
             }
             break;
-
         default:
+            Stat = stBlink1;
             break;
         }
     }
